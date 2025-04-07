@@ -18,7 +18,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/Tickets', async (req, res) => {
-    console.log("Iniciao de peticiones")
     const { correo, page } = req.body
     res.header('Access-Control-Allow-Origin', '*');
     const {data: response} = await RequestTickets(page, correo)
@@ -26,5 +25,5 @@ app.post('/Tickets', async (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log('Servidor escuchando en http://localhost:3000');
+    console.log('Servidor Iniciado');
 });
