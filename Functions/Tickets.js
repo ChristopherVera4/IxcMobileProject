@@ -30,6 +30,5 @@ const getCountTicketsByStatus = async (email,status) => {
 
 module.exports = {
     RequestTickets,
-    getCountTicketsByStatus,
-    TicketStatus
+    getCountTicketsByStatus
 }
