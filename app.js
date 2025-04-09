@@ -1,5 +1,5 @@
 const express = require('express');
-const { RequestTickets, getCountTicketsByStatus, TicketStatus } = require('./Functions/Tickets');
+const { RequestTickets, getCountTicketsByStatus } = require('./Functions/Tickets');
 const app = express();
 const cors = require('cors'); // Importa el paquete CORS
 
