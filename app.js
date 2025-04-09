@@ -1,5 +1,5 @@
 const express = require('express');
-const { RequestTickets } = require('./Functions/Tickets');
+const { RequestTickets, getCountTicketsByStatus, TicketStatus } = require('./Functions/Tickets');
 const app = express();
 const cors = require('cors'); // Importa el paquete CORS
 
@@ -24,6 +24,33 @@ app.post('/Tickets', async (req, res) => {
     res.status(200).send(response);
 });
 
+app.post('/Tickets/counts', async (req, res) => {
+    try {
+      const statuses = ['new', 'open', 'pending', 'hold', 'solved', 'closed'];
+      const { correo } = req.body
+
+      const results = await Promise.all(
+        statuses.map((status) => getCountTicketsByStatus(correo,status))
+      );
+  
+      res.status(200).json({
+        result: results
+      });
+
+    } catch (error) {
+      console.log('Error getting ticket counts', error);
+      res.status(500).json({ error: 'Error getting ticket counts' });
+    }
+  });
+
+app.get('/Tickets/status', async (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    const {data: response} = await TicketStatus()
+    console.log(response)
+    res.status(200).json({
+        results: response.custom_statuses
+      });
+});
 app.listen(3000, () => {
     console.log('Servidor Iniciado');
 });
